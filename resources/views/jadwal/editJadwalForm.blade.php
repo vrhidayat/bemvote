@@ -51,7 +51,7 @@
                                 <div class="form-label">Time</div>
                                 <div class="input-group">
                                     <input type="time" name="open_time" class="form-control" placeholder="HH-MM-SS"
-                                        id="time-formatting" value="{{ $time }}">
+                                        value="{{ $time }}">
                                 </div>
                             </div>
                         </div>
