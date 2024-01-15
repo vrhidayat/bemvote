@@ -1,4 +1,28 @@
-@extends('template')
+@extends('MainLayout')
+
+@section('breadcrumbs')
+    <!-- Breadcrumb start -->
+    <ol class="breadcrumb d-md-flex d-none">
+        <li class="breadcrumb-item">
+            <i class="bi bi-person"></i>
+            <a href="{{ route('user') }}">User</a>
+        </li>
+        <li class="breadcrumb-item breadcrumb-active" aria-current="page">Edit</li>
+    </ol>
+    <!-- Breadcrumb end -->
+@endsection
+
+@section('breadcrumbs')
+    <!-- Breadcrumb start -->
+    <ol class="breadcrumb d-md-flex d-none">
+        <li class="breadcrumb-item">
+            <i class="bi bi-house"></i>
+            <a href="{{ route('user') }}">User</a>
+        </li>
+        <li class="breadcrumb-item breadcrumb-active" aria-current="page">Edit</li>
+    </ol>
+    <!-- Breadcrumb end -->
+@endsection
 
 @section('mainContent')
     <div class="container-fluid py-4 px-4">

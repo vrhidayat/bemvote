@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('kandidat', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_user')->constrained('users');
-            $table->string('visi', 255);
-            $table->string('misi', 255);
-            $table->string('no_urut', 255);
+            $table->foreignId('id_jadwal')->constrained('jadwal');
+            $table->string('visi');
+            $table->string('misi');
+            $table->integer('no_urut');
             $table->string('foto', 120)->nullable();
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('kandidat');
     }
 };

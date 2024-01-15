@@ -1,4 +1,16 @@
-@extends('template')
+@extends('MainLayout')
+
+@section('breadcrumbs')
+    <!-- Breadcrumb start -->
+    <ol class="breadcrumb d-md-flex d-none">
+        <li class="breadcrumb-item">
+            <i class="bi bi-person"></i>
+            <a href="{{ route('user') }}">User</a>
+        </li>
+        <li class="breadcrumb-item breadcrumb-active" aria-current="page">Add</li>
+    </ol>
+    <!-- Breadcrumb end -->
+@endsection
 
 @section('mainContent')
     <div class="container-fluid py-4 px-4">
@@ -72,6 +84,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary" value="save">Save</button>
+                <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
             </form>
         </div>
     </div>

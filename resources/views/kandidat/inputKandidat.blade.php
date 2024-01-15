@@ -1,4 +1,16 @@
-@extends('template')
+@extends('MainLayout')
+
+@section('breadcrumbs')
+    <!-- Breadcrumb start -->
+    <ol class="breadcrumb d-md-flex d-none">
+        <li class="breadcrumb-item">
+            <i class="bi bi-house"></i>
+            <a href="{{ route('kandidat') }}">Kandidat</a>
+        </li>
+        <li class="breadcrumb-item breadcrumb-active" aria-current="page">Add</li>
+    </ol>
+    <!-- Breadcrumb end -->
+@endsection
 
 @section('mainContent')
     <div class="container-fluid py-4 px-4">
@@ -9,7 +21,7 @@
                     <label class="form-label">Nama</label>
                     <select class="form-select mb-3" aria-label="Default select example" name="id_user">
                         <option selected disabled>--PILIH MAHASISWA--</option>
-                        @foreach ($calon as $i)
+                        @foreach ($mhs as $i)
                             <option value="{{ $i->id }}">{{ $i->nama }}</option>
                         @endforeach
                     </select>
@@ -63,6 +75,21 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Periode</label>
+                    <select class="form-select mb-3" aria-label="Default select example" name="id_jadwal">
+                        <option selected disabled>--PILIH PERIODE--</option>
+                        @foreach ($jdwl as $i)
+                            <option value="{{ $i->id }}">{{ $i->title }} ({{ $i->elect_date }})</option>
+                        @endforeach
+                    </select>
+                    <small>
+                        @error('id_jadwal')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </small>
                 </div>
 
                 <div class="mb-3">

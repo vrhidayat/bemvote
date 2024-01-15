@@ -31,6 +31,7 @@ class KandidatController extends Controller
 
         $validate_data = $request->validate([
             'id_user' => 'required',
+            'id_jadwal' => 'required',
             'visi' => 'required',
             'misi' => 'required',
             'no_urut' => 'required',
@@ -50,6 +51,7 @@ class KandidatController extends Controller
         // Validation
         $validator = Validator::make($request->all(), [
             'id_user' => 'required',
+            'id_jadwal' => 'required',
             'visi' => 'required',
             'misi' => 'required',
             'no_urut' => 'required',
@@ -69,6 +71,7 @@ class KandidatController extends Controller
 
         Kandidat::where('id', $request->id)->update([
             'id_user' => $request->id_user,
+            'id_jadwal' => $request->id_jadwal,
             'visi' => $request->visi,
             'misi' => $request->misi,
             'no_urut' => $request->no_urut,
