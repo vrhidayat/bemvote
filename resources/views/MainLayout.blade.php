@@ -127,10 +127,10 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="{{ request()->routeIs('vote') ? 'active-page-link' : '' }}">
-                            <a href="{{ route('vote') }}">
+                        <li class="{{ request()->routeIs('event') ? 'active-page-link' : '' }}">
+                            <a href="{{ route('event') }}">
                                 <i class="bi bi-collection"></i>
-                                <span class="menu-text">Vote</span>
+                                <span class="menu-text">Event</span>
                             </a>
                         </li>
                         {{-- <li class="{{ request()->routeIs('jadwal') ? 'active-page-link' : '' }}">
