@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use App\Models\Kandidat;
-use App\Models\Mahasiswa;
 use App\Models\Prodi;
-use App\Models\Users;
+use App\Models\User as Users;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class viewController extends Controller
@@ -18,8 +16,16 @@ class viewController extends Controller
         return view('signIn');
     }
 
+    public function block()
+    {
+        return view('block');
+    }
+
     public function dash()
     {
+        if (auth()->guest()) {
+            return view('signIn');
+        }
         return view('dashboard');
     }
 
@@ -104,9 +110,19 @@ class viewController extends Controller
         return view('calendar_schedule');
     }
 
-    public function vote()
+    public function event()
     {
         $data = Jadwal::all();
+        return view('event_list', ['data' => $data]);
+    }
+
+    public function getCandidate($id)
+    {
+        // $idJadwal = Jadwal::find($id);
+        $data = Kandidat::where('id_jadwal', $id)->get();
+        // dd($data);
+        // die();
+
         return view('vote', ['data' => $data]);
     }
 }

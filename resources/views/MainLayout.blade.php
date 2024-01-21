@@ -223,7 +223,9 @@
                         <li class="dropdown">
                             <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown"
                                 aria-haspopup="true">
-                                <span class="user-name d-none d-md-block">Abigale Heaney</span>
+                                @auth
+                                    <span class="user-name d-none d-md-block">{{ auth()->user()->nama }}</span>
+                                @endauth
                                 <span class="avatar">
                                     <img src="{{ asset('theme/images/user.png') }}" alt="Admin Templates">
                                     <span class="status online"></span>
@@ -233,7 +235,7 @@
                                 <div class="header-profile-actions">
                                     <a href="profile.html">Profile</a>
                                     <a href="account-settings.html">Settings</a>
-                                    <a href="login.html">Logout</a>
+                                    <a href="{{ route('sign.out') }}">Logout</a>
                                 </div>
                             </div>
                         </li>
@@ -270,6 +272,9 @@
     <script src="{{ asset('theme/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('theme/js/modernizr.js') }}"></script>
     <script src="{{ asset('theme/js/moment.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
     <!-- *************
    ************ Vendor Js Files *************

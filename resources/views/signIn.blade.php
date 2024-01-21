@@ -1,110 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <!-- Meta -->
+    <meta name="description" content="Best Bootstrap Admin Dashboards">
+    <meta name="author" content="Bootstrap Gallery" />
+    <link rel="canonical" href="https://www.bootstrap.gallery/">
+    <meta property="og:url" content="https://www.bootstrap.gallery">
+    <meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
+    <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
+    <meta property="og:type" content="Website">
+    <meta property="og:site_name" content="Bootstrap Gallery">
+    <link rel="shortcut icon" href="{{ asset('theme/images/favicon.svg') }}">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Title -->
+    <title>Bootstrap Admin Dashboards</title>
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('theme/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('theme/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+    <!-- *************
+   ************ Common Css Files *************
+  ************ -->
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('theme/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Animated css -->
+    <link rel="stylesheet" href="{{ asset('theme/css/animate.css') }}">
 
-    <!-- Template Stylesheet -->
-    <link href="{{ asset('theme/css/style.css') }}" rel="stylesheet">
+    <!-- Bootstrap font icons css -->
+    <link rel="stylesheet" href="{{ asset('theme/fonts/bootstrap/bootstrap-icons.css') }}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{{ asset('theme/css/main.min.css') }}">
+
+
 </head>
 
-<body>
-    <div class="container-xxl position-relative bg-white d-flex p-0">
-        <!-- Spinner Start -->
-        <div id="spinner"
-            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
+<body class="login-container">
+
+    <!-- Loading wrapper start -->
+    <!-- <div id="loading-wrapper">
+   <div class="spinner">
+                <div class="line1"></div>
+    <div class="line2"></div>
+    <div class="line3"></div>
+    <div class="line4"></div>
+    <div class="line5"></div>
+    <div class="line6"></div>
             </div>
-        </div>
-        <!-- Spinner End -->
+  </div> -->
+    <!-- Loading wrapper end -->
 
-
-        <!-- Sign In Start -->
-        <div class="container-fluid">
-            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
-                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>BEMVote</h3>
-                            </a>
-                            <h3>Sign In</h3>
-                        </div>
-                        <form action="{{ route('loginProcess') }}" method="POST">
-                            @csrf
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="NIM"
-                                    name="nim">
-                                <label for="floatingInput">NIM</label>
-                                <small>
-                                    @error('nim')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </small>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                                    name="password">
-                                <label for="floatingPassword">Password</label>
-                                <small>
-                                    @error('password')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </small>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                                <a href="">Forgot Password</a>
-                            </div>
-                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
-                        </form>
+    <!-- Login box start -->
+    <form action="{{ route('sign.proccess') }}" method="POST">
+        @csrf
+        @if (session()->has('loginError'))
+            {{ session('loginError') }}<br />
+        @endif
+        <div class="login-box">
+            <div class="login-form">
+                <a href="index.html" class="login-logo">
+                    <img src="{{ asset('theme/images/logo.svg') }}" alt="Vico Admin" />
+                </a>
+                <div class="login-welcome">
+                    Welcome back, <br />Please login to your Arise admin account.
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">NIM</label>
+                    <input type="text" name="nim" class="form-control">
+                    <small>
+                        @error('nim')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <label class="form-label">Password</label>
+                        <a href="forgot-password.html" class="btn-link ml-auto">Forgot password?</a>
+                    </div>
+                    <input type="password" name="password" class="form-control">
+                    <small>
+                        @error('password')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </small>
+                </div>
+                <div class="login-form-actions">
+                    <button type="submit" class="btn"> <span class="icon"> <i
+                                class="bi bi-arrow-right-circle"></i> </span>
+                        Login</button>
+                </div>
+                <div class="login-form-actions">
+                    <button type="submit" class="btn"> <img src="{{ asset('theme/images/google.svg') }}"
+                            class="login-icon" alt="Login with Google">
+                        Login with Google</button>
+                    <button type="submit" class="btn"> <img src="{{ asset('theme/images/facebook.svg') }}"
+                            class="login-icon" alt="Login with Facebook">
+                        Login with Facebook</button>
+                </div>
+                <div class="login-form-footer">
+                    <div class="additional-link">
+                        Don't have an account? <a href="signup.html"> Signup</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Sign In End -->
-    </div>
+    </form>
+    <!-- Login box end -->
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('theme/lib/chart/chart.min.js') }}"></script>
-    <script src="{{ asset('theme/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('theme/lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('theme/lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('theme/lib/tempusdominus/js/moment.min.js') }}"></script>
-    <script src="{{ asset('theme/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
-    <script src="{{ asset('theme/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <!-- *************
+   ************ Required JavaScript Files *************
+  ************* -->
+    <!-- Required jQuery first, then Bootstrap Bundle JS -->
+    <script src="{{ asset('theme/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('theme/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('theme/js/modernizr.js') }}"></script>
+    <script src="{{ asset('theme/js/moment.js') }}"></script>
 
-    <!-- Template Javascript -->
+    <!-- *************
+   ************ Vendor Js Files *************
+  ************* -->
+
+    <!-- Main Js Required -->
     <script src="{{ asset('theme/js/main.js') }}"></script>
+
 </body>
 
 </html>
