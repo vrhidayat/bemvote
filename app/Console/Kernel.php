@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        //TODO: Implement
+        $schedule->command('app:update-jadwal-status')->everyMinute();
     }
 
     /**
