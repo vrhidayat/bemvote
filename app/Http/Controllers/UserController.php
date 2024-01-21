@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Users;
+use App\Models\User as Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Barryvdh\Debugbar\Facades\Debugbar;
-use Exception;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -31,7 +29,7 @@ class UserController extends Controller
             'nim.required' => 'NIM harus diisi',
             'nama.required' => 'Nama harus diisi',
             'id_prodi.not_in' => 'Pilih program studi',
-            'password.required' => 'Password harus diisi',
+            'ogPassword.required' => 'Password harus diisi',
             'role.required' => 'Role harus diisi',
         ];
 
@@ -39,12 +37,13 @@ class UserController extends Controller
             'nim' => 'required|digits:9|unique:users',
             'nama' => 'required|regex:/^[A-Za-z\s]+$/',
             'id_prodi' => 'not_in:--PILIH PROGRAM STUDI--',
-            'password_hash' => 'required',
+            'ogPassword' => 'required',
             'password' => 'required',
             'foto' => 'nullable',
             'role' => 'required'
         ], $message);
         $validate_data['foto'] =  $pathPublic;
+        $validate_data['password'] =  bcrypt($request->input('ogPassword'));
         Users::create($validate_data);
 
         return redirect("/user");
@@ -60,6 +59,7 @@ class UserController extends Controller
             'nim' => 'required|digits:9',
             'nama' => 'required',
             'id_prodi' => 'required',
+            'ogPassword' => 'required',
             'password' => 'required',
             'role' => 'required',
             'foto' => 'nullable'
@@ -80,8 +80,8 @@ class UserController extends Controller
             'nim' => $request->nim,
             'nama' => $request->nama,
             'id_prodi' => $request->id_prodi,
-            'password_hash' => $request->password,
-            'password' => $request->password,
+            'ogPassword' => $request->password,
+            'password' => bcrypt($request->password),
             'foto' => $pathPublic,
             'role' => $request->role
         ]);
