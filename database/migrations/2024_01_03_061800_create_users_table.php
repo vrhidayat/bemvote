@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('ogPassword', 20);
             $table->string('password');
             $table->string('foto', 120)->nullable();
-            $table->enum('role', ['admin', 'staff', 'user']);
+            $table->enum('role', ['admin', 'user']);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -29,7 +29,7 @@ return new class extends Migration
         // Inserting sample data
         DB::table('users')->insert([
             ['nim' => '202104001', 'nama' => 'Rahmat Grace', 'id_prodi' => 'PR001', 'ogPassword' => 'akusukakamu', 'password' => bcrypt('akusukakamu'), 'role' => 'admin'],
-            ['nim' => '202104002', 'nama' => 'Yanto Yasuo', 'id_prodi' => 'PR003', 'ogPassword' => 'bandarSkin', 'password' => bcrypt('bandarSkin'), 'role' => 'staff'],
+            ['nim' => '202104002', 'nama' => 'Yanto Yasuo', 'id_prodi' => 'PR003', 'ogPassword' => 'bandarSkin', 'password' => bcrypt('bandarSkin'), 'role' => 'user'],
             ['nim' => '202104003', 'nama' => 'Budi Budiman', 'id_prodi' => 'PR002', 'ogPassword' => 'akusayangmamah', 'password' => bcrypt('akusayangmamah'), 'role' => 'user'],
             ['nim' => '202104004', 'nama' => 'Rehan', 'id_prodi' => 'PR004', 'ogPassword' => 'nakYimYam', 'password' => bcrypt('nakYimYam'), 'role' => 'user']
         ]);
