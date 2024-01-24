@@ -20,7 +20,7 @@ class UserAccess
             if (Auth::user()->role == $admin || Auth::user()->role == $staff || Auth::user()->role == $user) {
                 return $next($request);
             } else {
-                return redirect('/block') - with('message', "Sorry!, you don't have access to this page");
+                return redirect('/block')->with('message', "Sorry!, you don't have access to this page");
             }
         } else {
             return redirect('/login')->with('message', 'You must be Signed in first!');

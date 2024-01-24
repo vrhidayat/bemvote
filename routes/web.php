@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'user-access:admin,staff'], function () {
+Route::group(['middleware' => 'user-access:admin'], function () {
     Route::name('user.')->group(function () {
         Route::get('/input-user', [viewController::class, 'inputUsr'])->name('add');
         Route::post('/simpan-user', [UserController::class, 'simpanUsr'])->name('save');
@@ -28,16 +28,13 @@ Route::group(['middleware' => 'user-access:admin,staff'], function () {
         Route::get('/delete-user/{id}', [UserController::class, 'deleteUsr'])->name('delete');
     });
 });
-Route::group(['middleware' => 'user-access:admin,staff'], function () {
+Route::group(['middleware' => 'user-access:admin'], function () {
     Route::controller(viewController::class)->group(function () {
-        Route::get('/', 'dash')->name('home');
+
         Route::get('/kandidat', 'kandidat')->name('kandidat');
         Route::get('/user', 'user')->name('user');
         Route::get('/jadwal', 'jadwal')->name('jadwal');
-        Route::get('/calendar', 'calendar')->name('calendar');
-        Route::get('/event', 'event')->name('event');
     });
-
     Route::name('kandidat.')->group(function () {
         Route::get('/input-kandidat', [viewController::class, 'inputKand'])->name('add');
         Route::post('/simpan-kandidat', [KandidatController::class, 'simpanKand'])->name('save');
@@ -45,7 +42,6 @@ Route::group(['middleware' => 'user-access:admin,staff'], function () {
         Route::post('/update-kandidat', [KandidatController::class, 'updateKand'])->name('update');
         Route::get('/delete-kandidat/{id}', [KandidatController::class, 'deleteKand'])->name('delete');
     });
-
 
     Route::name('jadwal.')->group(function () {
         Route::get('/input-jadwal', [viewController::class, 'inputJadwal'])->name('add');
@@ -56,9 +52,16 @@ Route::group(['middleware' => 'user-access:admin,staff'], function () {
     });
 });
 
-Route::group(['middleware' => 'user-access:user'], function () {
-    Route::get('/get-candidate/{id}', [viewController::class, 'getCandidate'])->name('getCandidate');
+
+Route::controller(viewController::class)->group(function () {
+    Route::get('/', 'dash')->name('home');
+    Route::get('/calendar', 'calendar')->name('calendar');
+    Route::get('/event', 'event')->name('event');
 });
+
+// Route::group(['middleware' => 'user-access:user'], function () {
+Route::get('/get-candidate/{id}', [viewController::class, 'getCandidate'])->name('getCandidate');
+// });
 
 Route::name('sign.')->group(function () {
     Route::get('/login', [viewController::class, 'signIn'])->name('in');
@@ -66,6 +69,6 @@ Route::name('sign.')->group(function () {
     Route::get('/signingOut', [LoginController::class, 'logout'])->name('out');
 });
 
-Route::get('/block', 'viewController@block')->name('block');
+Route::get('/block', [viewController::class, 'block'])->name('block');
 
 Route::get('/get-events', [CalendarController::class, 'getEvents'])->name('getEvents');
