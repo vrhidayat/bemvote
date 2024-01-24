@@ -6,7 +6,9 @@ use App\Models\Jadwal;
 use App\Models\Kandidat;
 use App\Models\Prodi;
 use App\Models\User as Users;
+use App\Models\Voting;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class viewController extends Controller
@@ -39,8 +41,8 @@ class viewController extends Controller
 
     public function inputKand()
     {
-        $mhs = Users::select('id', 'nim', 'nama')->get();
-        $jdwl = Jadwal::select('id', 'title', 'elect_date')->get();
+        $mhs = Users::where('role', 'user')->select('id', 'nim', 'nama')->get();
+        $jdwl = Jadwal::select('id', 'judul', 'tanggal_pemilihan')->get();
         return view('kandidat.inputKandidat', ['mhs' => $mhs, 'jdwl' => $jdwl]);
     }
 
@@ -48,7 +50,7 @@ class viewController extends Controller
     {
         $data = Kandidat::find($id);
         $dataMhs = Users::select('id', 'nim', 'nama')->get();
-        $jdwl = Jadwal::select('id', 'title', 'elect_date')->get();
+        $jdwl = Jadwal::select('id', 'judul', 'tanggal_pemilihan')->get();
         return view('kandidat.editKandidatForm', ['send' => $data, 'dataMhs' => $dataMhs, 'jdwl' => $jdwl]);
     }
 
@@ -89,8 +91,6 @@ class viewController extends Controller
         $data = DB::table('jadwal')->where('id', $id)->first();
         // dd($data);
         // die();
-        // $data = Jadwal::find($id);
-        // Assuming $data->dateTime is the field containing the date and time
         $dateTime = Carbon::parse($data->open_vote);
 
         // Extracting date and time components
@@ -118,11 +118,16 @@ class viewController extends Controller
 
     public function getCandidate($id)
     {
-        // $idJadwal = Jadwal::find($id);
-        $data = Kandidat::where('id_jadwal', $id)->get();
-        // dd($data);
-        // die();
-
-        return view('vote', ['data' => $data]);
+        // $user = Kandidat::join('users', 'users.id', '=', 'kandidat.id_user')
+        //     ->get(['users.*', 'kandidat.*']);
+        $userId = Auth()->user()->id;
+        $data = Kandidat::join('users', 'users.id', '=', 'kandidat.id_user')
+            ->select('kandidat.*', 'users.id as id_user', 'users.nama')
+            ->where('id_jadwal', $id)->get();
+        if (Voting::where('id_user', $userId)->exists() && Voting::where('id_jadwal', $id)->exists()) {
+            return view('vote.voted');
+        } else {
+            return view('vote.vote', ['data' => $data]);
+        }
     }
 }

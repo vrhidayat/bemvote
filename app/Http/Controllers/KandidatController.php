@@ -34,7 +34,6 @@ class KandidatController extends Controller
             'id_jadwal' => 'required',
             'visi' => 'required',
             'misi' => 'required',
-            'no_urut' => 'required',
             'foto' => 'nullable'
         ], $message);
         $validate_data['foto'] =  $pathPublic;
@@ -54,7 +53,6 @@ class KandidatController extends Controller
             'id_jadwal' => 'required',
             'visi' => 'required',
             'misi' => 'required',
-            'no_urut' => 'required',
             'foto' => 'nullable'
         ]);
 
@@ -74,7 +72,6 @@ class KandidatController extends Controller
             'id_jadwal' => $request->id_jadwal,
             'visi' => $request->visi,
             'misi' => $request->misi,
-            'no_urut' => $request->no_urut,
             'foto' => $pathPublic
         ]);
 

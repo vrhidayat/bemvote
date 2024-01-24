@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User as Users;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -38,13 +38,12 @@ class UserController extends Controller
             'nama' => 'required|regex:/^[A-Za-z\s]+$/',
             'id_prodi' => 'not_in:--PILIH PROGRAM STUDI--',
             'ogPassword' => 'required',
-            'password' => 'required',
             'foto' => 'nullable',
             'role' => 'required'
         ], $message);
         $validate_data['foto'] =  $pathPublic;
         $validate_data['password'] =  bcrypt($request->input('ogPassword'));
-        Users::create($validate_data);
+        User::create($validate_data);
 
         return redirect("/user");
     }
@@ -76,7 +75,7 @@ class UserController extends Controller
             $pathPublic = $foldername . "/" . $filename; //* get file path
         }
 
-        Users::where('id', $request->id)->update([
+        User::where('id', $request->id)->update([
             'nim' => $request->nim,
             'nama' => $request->nama,
             'id_prodi' => $request->id_prodi,
@@ -91,9 +90,9 @@ class UserController extends Controller
 
     public function deleteUsr($i)
     {
-        $data = Users::find($i);
+        $data = User::find($i);
         File::delete($data->foto);
-        Users::where('id', $i)->delete();
+        User::where('id', $i)->delete();
 
         return redirect('/user');
     }
