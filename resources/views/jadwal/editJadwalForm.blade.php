@@ -21,7 +21,7 @@
                     <input type="hidden" name="id" value="{{ $send->id }}">
                     <div class="mb-3">
                         <label class="form-label">Judul</label>
-                        <input type="text" class="form-control" name="title" value="{{ $send->title }}">
+                        <input type="text" class="form-control" name="judul" value="{{ $send->judul }}">
                     </div>
                     <div class="mb-3">
                         <div class="form-label">Tanggal Pemilihan</div>
@@ -29,7 +29,8 @@
                             <span class="input-group-text">
                                 <i class="bi bi-calendar4"></i>
                             </span>
-                            <input type="date" name="elect_date" class="form-control" value="{{ $send->elect_date }}">
+                            <input type="date" name="tanggal_pemilihan" class="form-control"
+                                value="{{ $send->tanggal_pemilihan }}">
                         </div>
                     </div>
 
@@ -78,9 +79,9 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Listen for changes on the elect_date input
-            $('input[name="elect_date"]').on('change', function() {
-                // Set the value of open_date to the value of elect_date
+            // Listen for changes on the tanggal_pemilihan input
+            $('input[name="tanggal_pemilihan"]').on('change', function() {
+                // Set the value of open_date to the value of tanggal_pemilihan
                 $('input[name="open_date"]').val($(this).val());
             });
         });

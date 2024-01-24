@@ -96,18 +96,20 @@
                                 <span class="menu-text">Dashboard</span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs('kandidat') ? 'active-page-link' : '' }}">
-                            <a href="{{ route('kandidat') }}">
-                                <i class="bi bi-person-square"></i>
-                                <span class="menu-text">Kandidat</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->routeIs('user') ? 'active-page-link' : '' }}">
-                            <a href="{{ route('user') }}">
-                                <i class="bi bi-person"></i>
-                                <span class="menu-text">User</span>
-                            </a>
-                        </li>
+                        @if (auth()->user()->role == 'admin')
+                            <li class="{{ request()->routeIs('kandidat') ? 'active-page-link' : '' }}">
+                                <a href="{{ route('kandidat') }}">
+                                    <i class="bi bi-person-square"></i>
+                                    <span class="menu-text">Kandidat</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->routeIs('user') ? 'active-page-link' : '' }}">
+                                <a href="{{ route('user') }}">
+                                    <i class="bi bi-person"></i>
+                                    <span class="menu-text">User</span>
+                                </a>
+                            </li>
+                        @endif
                         <li
                             class="sidebar-dropdown {{ (request()->routeIs('jadwal') ? 'active' : request()->routeIs('calendar')) ? 'active' : '' }}">
                             <a href="#">
@@ -116,10 +118,12 @@
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
-                                    <li>
-                                        <a href="{{ route('jadwal') }}"
-                                            class="{{ request()->routeIs('jadwal') ? 'current-page' : '' }}">Jadwal</a>
-                                    </li>
+                                    @if (auth()->user()->role == 'admin')
+                                        <li>
+                                            <a href="{{ route('jadwal') }}"
+                                                class="{{ request()->routeIs('jadwal') ? 'current-page' : '' }}">Jadwal</a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('calendar') }}"
                                             class="{{ request()->routeIs('calendar') ? 'current-page' : '' }}">Calendar</a>
@@ -272,6 +276,7 @@
     <script src="{{ asset('theme/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('theme/js/modernizr.js') }}"></script>
     <script src="{{ asset('theme/js/moment.js') }}"></script>
+    <script src="{{ asset('theme/js/updateStatusJadwal.js') }}"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 

@@ -55,39 +55,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">No Urut</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" value="1" @if (old('no_urut', $send->no_urut) === '1') checked @endif
-                                type="radio" name="no_urut">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                1
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" value="2" @if (old('no_urut', $send->no_urut) === '2') checked @endif
-                                type="radio" name="no_urut">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                2
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" value="3" @if (old('no_urut', $send->no_urut) === '3') checked @endif
-                                type="radio" name="no_urut">
-                            <label class="form-check-label" for="flexRadioDefault3">
-                                3
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
                     <label class="form-label">Periode</label>
                     <select class="form-select mb-3" aria-label="Default select example" name="id_jadwal">
                         <option selected disabled>--PILIH PERIODE--</option>
                         @foreach ($jdwl as $i)
                             <option value="{{ $i->id }}" @if (old('id', $i->id) === $send->id) selected @endif>
-                                {{ $i->title }} ({{ $i->elect_date }})</option>
+                                {{ $i->title }} ({{ $i->tanggal_pemilihan }})</option>
                         @endforeach
                     </select>
                     <small>

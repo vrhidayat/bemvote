@@ -47,7 +47,7 @@
     <div class="error-screen">
         <h1>404</h1>
         <h5>We're sorry but it looks<br />like that page doesn't exist anymore.</h5>
-        <a href="{{ route('') }}" class="btn btn-outline-white ">Go back to Dashboard</a>
+        <a href="{{ route('home') }}" class="btn btn-outline-white ">Go back to Dashboard</a>
     </div>
 
     <!--**************************

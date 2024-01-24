@@ -53,36 +53,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">No Urut</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" value="1" type="radio" name="no_urut" checked>
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                1
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" value="2" type="radio" name="no_urut">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                2
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" value="3" type="radio" name="no_urut">
-                            <label class="form-check-label" for="flexRadioDefault3">
-                                3
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="mb-3">
                     <label class="form-label">Periode</label>
                     <select class="form-select mb-3" aria-label="Default select example" name="id_jadwal">
                         <option selected disabled>--PILIH PERIODE--</option>
                         @foreach ($jdwl as $i)
-                            <option value="{{ $i->id }}">{{ $i->title }} ({{ $i->elect_date }})</option>
+                            <option value="{{ $i->id }}">{{ $i->title }} ({{ $i->tanggal_pemilihan }})
+                            </option>
                         @endforeach
                     </select>
                     <small>
