@@ -15,8 +15,8 @@ class CalendarController extends Controller
         $events = [];
         foreach ($jadwal as $item) {
             $events[] = [
-                'title' => $item->title, // Set a meaningful title
-                'start' => $item->elect_date, // Start date
+                'judul' => $item->judul, // Set a meaningful judul
+                'start' => $item->tanggal_pemilihan, // Start date
                 'end' => $item->close_vote, // End date
                 'color' => $this->getRandomColor(), // Use your function to get a random color
             ];

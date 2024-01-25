@@ -33,7 +33,6 @@
                         <th scope="col">Nama</th>
                         <th scope="col">Visi</th>
                         <th scope="col">Misi</th>
-                        <th scope="col">No Urut</th>
                         <th scope="col">Periode</th>
                         <th scope="col"></th>
                     </tr>
@@ -49,12 +48,11 @@
                             <td>{{ $item->users->nama }}</td>
                             <td>{{ $item->visi }}</td>
                             <td>{{ $item->misi }}</td>
-                            <td class="text-center">{{ $item->no_urut }}</td>
                             <td>{{ $item->jadwal->title }}</td>
                             <td class="text-center">
                                 <div class="dropdown">
                                     <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa-solid fa-ellipsis"></i>
+                                        <i class="bi bi-three-dots"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-lg-end">
                                         <li>

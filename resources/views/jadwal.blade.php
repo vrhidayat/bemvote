@@ -43,7 +43,7 @@
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             </td>
                             <td>{{ $item->title }}</td>
-                            <td>{{ $item->elect_date }}</td>
+                            <td>{{ $item->tanggal_pemilihan }}</td>
                             <td>{{ $item->open_vote }}</td>
                             <td>{{ $item->close_vote }}</td>
                             <td class="text-center">

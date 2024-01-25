@@ -11,18 +11,19 @@ class JadwalController extends Controller
 {
     public function simpanJadwal(Request $request)
     {
-        $elect_date = $request->input('elect_date');
+        $judul = $request->input('judul');
+        $tanggal_pemilihan = $request->input('tanggal_pemilihan');
         $openDate = $request->open_date;
         $openTime = $request->open_time;
         $closeVote = $request->close_vote;
 
-        $fPemilihan = Carbon::parse($elect_date)->format('Y-m-d');
+        $fPemilihan = Carbon::parse($tanggal_pemilihan)->format('Y-m-d');
         $fOpenVote = Carbon::parse("$openDate $openTime")->format('Y-m-d H:i:s');
         $fCloseVote = Carbon::parse($closeVote)->format('Y-m-d H:i:s');
 
         Jadwal::create([
-            'title' => $request->title,
-            'elect_date' => $fPemilihan,
+            'judul' => $judul,
+            'tanggal_pemilihan' => $fPemilihan,
             'open_vote' => $fOpenVote,
             'close_vote' => $fCloseVote
         ]);
@@ -32,19 +33,19 @@ class JadwalController extends Controller
 
     public function updateJadwal(Request $request)
     {
-        $elect_date = $request->input('elect_date');
+        $tanggal_pemilihan = $request->input('tanggal_pemilihan');
         $openDate = $request->open_date;
         $openTime = $request->open_time;
         $closeVote = $request->close_vote;
 
-        $fPemilihan = Carbon::parse($elect_date)->format('Y-m-d');
+        $fPemilihan = Carbon::parse($tanggal_pemilihan)->format('Y-m-d');
         $fOpenVote = Carbon::parse("$openDate $openTime")->format('Y-m-d H:i:s');
         $fCloseVote = Carbon::parse($closeVote)->format('Y-m-d H:i:s');
 
 
         Jadwal::where('id', $request->id)->update([
-            'title' => $request->title,
-            'elect_date' => $fPemilihan,
+            'judul' => $request->judul,
+            'tanggal_pemilihan' => $fPemilihan,
             'open_vote' => $fOpenVote,
             'close_vote' => $fCloseVote
         ]);

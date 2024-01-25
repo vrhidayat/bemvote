@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->date('elect_date');
+            $table->string('judul');
+            $table->date('tanggal_pemilihan');
             $table->dateTime('open_vote');
             $table->dateTime('close_vote');
             $table->enum('status', ['future', 'ongoing', 'closed'])->default('future');
@@ -29,6 +29,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('jadwal');
-        DB::unprepared('DROP TRIGGER IF EXISTS update_jadwal_status');
     }
 };

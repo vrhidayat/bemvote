@@ -69,13 +69,13 @@
 
                 <div class="mb-3">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" value="{{ $send->password }}">
+                    <input type="password" class="form-control" name="ogPassword" value="{{ $send->ogPassword }}">
                     <small>
-                        @error('password')
+                        @error('ogPassword')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </small>
-                    <input type="hidden" name="password_hash" value="{{ $send->password }}">
+                    <input type="hidden" name="ogPassword" value="{{ $send->ogPassword }}">
                 </div>
 
                 <div class="mb-3">
@@ -96,11 +96,41 @@
                 <div class="mb-3">
                     <label class="form-label">Foto</label>
                     <input type="hidden" name="imgPath" value="{{ $send->foto }}">
-                    <input class="form-control" type="file" name="foto">
+                    <input class="form-control" type="file" name="foto" id="fotoInput">
+                    <img src="" alt="" id="previewImage" style="max-width: 100%; max-height: 200px;">
                 </div>
 
                 <button type="submit" class="btn btn-primary" value="update">Update</button>
             </form>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Listen for the file input change event
+            $('#fotoInput').on('change', function(e) {
+                // Get the selected file
+                var file = e.target.files[0];
+
+                // Check if a file is selected
+                if (file) {
+                    // Create a FileReader object
+                    var reader = new FileReader();
+
+                    // Set a callback function to execute when the image is loaded
+                    reader.onload = function(e) {
+                        // Set the image source with the preview data URL
+                        $('#previewImage').attr('src', e.target.result);
+                    };
+
+                    // Read the file as a Data URL (base64-encoded image)
+                    reader.readAsDataURL(file);
+                } else {
+                    // If no file is selected, clear the image source
+                    $('#previewImage').attr('src', '');
+                }
+            });
+        });
+    </script>
 @endsection

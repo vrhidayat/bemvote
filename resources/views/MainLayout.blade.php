@@ -96,18 +96,20 @@
                                 <span class="menu-text">Dashboard</span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs('kandidat') ? 'active-page-link' : '' }}">
-                            <a href="{{ route('kandidat') }}">
-                                <i class="bi bi-person-square"></i>
-                                <span class="menu-text">Kandidat</span>
-                            </a>
-                        </li>
-                        <li class="{{ request()->routeIs('user') ? 'active-page-link' : '' }}">
-                            <a href="{{ route('user') }}">
-                                <i class="bi bi-person"></i>
-                                <span class="menu-text">User</span>
-                            </a>
-                        </li>
+                        @if (auth()->user()->role == 'admin')
+                            <li class="{{ request()->routeIs('kandidat') ? 'active-page-link' : '' }}">
+                                <a href="{{ route('kandidat') }}">
+                                    <i class="bi bi-person-square"></i>
+                                    <span class="menu-text">Kandidat</span>
+                                </a>
+                            </li>
+                            <li class="{{ request()->routeIs('user') ? 'active-page-link' : '' }}">
+                                <a href="{{ route('user') }}">
+                                    <i class="bi bi-person"></i>
+                                    <span class="menu-text">User</span>
+                                </a>
+                            </li>
+                        @endif
                         <li
                             class="sidebar-dropdown {{ (request()->routeIs('jadwal') ? 'active' : request()->routeIs('calendar')) ? 'active' : '' }}">
                             <a href="#">
@@ -116,10 +118,12 @@
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
-                                    <li>
-                                        <a href="{{ route('jadwal') }}"
-                                            class="{{ request()->routeIs('jadwal') ? 'current-page' : '' }}">Jadwal</a>
-                                    </li>
+                                    @if (auth()->user()->role == 'admin')
+                                        <li>
+                                            <a href="{{ route('jadwal') }}"
+                                                class="{{ request()->routeIs('jadwal') ? 'current-page' : '' }}">Jadwal</a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('calendar') }}"
                                             class="{{ request()->routeIs('calendar') ? 'current-page' : '' }}">Calendar</a>
@@ -223,7 +227,9 @@
                         <li class="dropdown">
                             <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown"
                                 aria-haspopup="true">
-                                <span class="user-name d-none d-md-block">Abigale Heaney</span>
+                                @auth
+                                    <span class="user-name d-none d-md-block">{{ auth()->user()->nama }}</span>
+                                @endauth
                                 <span class="avatar">
                                     <img src="{{ asset('theme/images/user.png') }}" alt="Admin Templates">
                                     <span class="status online"></span>
@@ -233,7 +239,7 @@
                                 <div class="header-profile-actions">
                                     <a href="profile.html">Profile</a>
                                     <a href="account-settings.html">Settings</a>
-                                    <a href="login.html">Logout</a>
+                                    <a href="{{ route('sign.out') }}">Logout</a>
                                 </div>
                             </div>
                         </li>
@@ -270,6 +276,10 @@
     <script src="{{ asset('theme/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('theme/js/modernizr.js') }}"></script>
     <script src="{{ asset('theme/js/moment.js') }}"></script>
+    <script src="{{ asset('theme/js/updateStatusJadwal.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
     <!-- *************
    ************ Vendor Js Files *************

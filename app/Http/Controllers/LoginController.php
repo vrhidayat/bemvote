@@ -17,7 +17,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($check)) {
             $request->session()->regenerate();
-            return redirect()->intended('/mahasiswa');
+            return redirect()->intended('/');
         }
         return back()->with('loginError', 'Login Failed.');
     }
@@ -27,6 +27,6 @@ class LoginController extends Controller
         Auth::logout($request);
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/signin');
+        return redirect('/login');
     }
 }

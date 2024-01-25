@@ -9,7 +9,7 @@ class Jadwal extends Model
 {
     use HasFactory;
     protected $table = 'jadwal';
-    protected $fillable = ["title", "elect_date", "open_vote", "close_vote"];
+    protected $fillable = ["judul", "tanggal_pemilihan", "open_vote", "close_vote"];
     protected $casts = [
         'created_at' => 'datetime',
     ];

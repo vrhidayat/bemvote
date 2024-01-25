@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use App\Models\Kandidat;
-use App\Models\Mahasiswa;
 use App\Models\Prodi;
-use App\Models\Users;
+use App\Models\User as Users;
+use App\Models\Voting;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class viewController extends Controller
@@ -18,8 +18,16 @@ class viewController extends Controller
         return view('signIn');
     }
 
+    public function block()
+    {
+        return view('block');
+    }
+
     public function dash()
     {
+        if (auth()->guest()) {
+            return view('signIn');
+        }
         return view('dashboard');
     }
 
@@ -33,8 +41,8 @@ class viewController extends Controller
 
     public function inputKand()
     {
-        $mhs = Users::select('id', 'nim', 'nama')->get();
-        $jdwl = Jadwal::select('id', 'title', 'elect_date')->get();
+        $mhs = Users::where('role', 'user')->select('id', 'nim', 'nama')->get();
+        $jdwl = Jadwal::select('id', 'judul', 'tanggal_pemilihan')->get();
         return view('kandidat.inputKandidat', ['mhs' => $mhs, 'jdwl' => $jdwl]);
     }
 
@@ -42,7 +50,7 @@ class viewController extends Controller
     {
         $data = Kandidat::find($id);
         $dataMhs = Users::select('id', 'nim', 'nama')->get();
-        $jdwl = Jadwal::select('id', 'title', 'elect_date')->get();
+        $jdwl = Jadwal::select('id', 'judul', 'tanggal_pemilihan')->get();
         return view('kandidat.editKandidatForm', ['send' => $data, 'dataMhs' => $dataMhs, 'jdwl' => $jdwl]);
     }
 
@@ -83,8 +91,6 @@ class viewController extends Controller
         $data = DB::table('jadwal')->where('id', $id)->first();
         // dd($data);
         // die();
-        // $data = Jadwal::find($id);
-        // Assuming $data->dateTime is the field containing the date and time
         $dateTime = Carbon::parse($data->open_vote);
 
         // Extracting date and time components
@@ -104,9 +110,24 @@ class viewController extends Controller
         return view('calendar_schedule');
     }
 
-    public function vote()
+    public function event()
     {
         $data = Jadwal::all();
-        return view('vote', ['data' => $data]);
+        return view('event_list', ['data' => $data]);
+    }
+
+    public function getCandidate($id)
+    {
+        // $user = Kandidat::join('users', 'users.id', '=', 'kandidat.id_user')
+        //     ->get(['users.*', 'kandidat.*']);
+        $userId = Auth()->user()->id;
+        $data = Kandidat::join('users', 'users.id', '=', 'kandidat.id_user')
+            ->select('kandidat.*', 'users.id as id_user', 'users.nama')
+            ->where('id_jadwal', $id)->get();
+        if (Voting::where('id_user', $userId)->exists() && Voting::where('id_jadwal', $id)->exists()) {
+            return view('vote.voted');
+        } else {
+            return view('vote.vote', ['data' => $data]);
+        }
     }
 }

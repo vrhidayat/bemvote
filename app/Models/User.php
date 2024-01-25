@@ -17,10 +17,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = "users";
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        "nim",
+        "nama",
+        "id_prodi",
+        "ogPassword",
+        "password",
+        "foto",
+        "role"
     ];
 
     /**
@@ -29,8 +34,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'ogPassword',
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
     /**
@@ -39,7 +45,14 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'timestamps' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public $timestamps = true;
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi');
+    }
 }
